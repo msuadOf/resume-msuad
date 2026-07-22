@@ -1,0 +1,228 @@
+% !TEX program = xelatex
+% =============================================================================
+% 中文求职简历 LaTeX 模板
+% Author: Kody
+% Repository: https://github.com/kodyyu1126/Chinese-resume-template-work
+% Compiler: XeLaTeX
+%
+% 快速修改指南：
+% 1. 在“个人信息头部”中替换姓名、联系方式、求职意向和头像。
+% 2. 在“教育背景”中替换学校、专业、成绩排名和课程信息。
+% 3. 在实习经历、项目经历、校园经历与荣誉技能模块中增删示例内容。
+% 4. 如需调整样式，可修改下方的字体、页面边距与 sectioncolor 配置。
+% 发布公开版本前，请将上方 Repository 链接替换为实际 GitHub 仓库地址。
+% =============================================================================
+\documentclass[11pt,a4paper,fontset=none]{ctexart}
+
+% ── 字体设置 ──────────────────────────────────────────────
+% 若需在 Overleaf 使用自定义字体，可将已授权的字体文件放入 fonts/ 文件夹，
+% 并按 STSong.ttf、STHeiti.ttf、STKaiti.ttf 命名；macOS 本地默认使用系统华文系列。
+\IfFontExistsTF{Times New Roman}{\setmainfont{Times New Roman}}{}
+
+\newif\ifuseuploadedcjkfonts
+\IfFileExists{fonts/STSong.ttf}{
+    \IfFileExists{fonts/STHeiti.ttf}{
+        \IfFileExists{fonts/STKaiti.ttf}{\useuploadedcjkfontstrue}{}
+    }{}
+}{}
+
+\newif\ifusesystemcjkfonts
+\IfFontExistsTF{STSong}{
+    \IfFontExistsTF{STHeiti}{
+        \IfFontExistsTF{STKaiti}{\usesystemcjkfontstrue}{}
+    }{}
+}{}
+
+\ifuseuploadedcjkfonts
+    \setCJKmainfont[
+        Path = fonts/,
+        BoldFont = STHeiti.ttf,
+        ItalicFont = STKaiti.ttf
+    ]{STSong.ttf}
+    \setCJKsansfont[Path = fonts/]{STHeiti.ttf}
+    \setCJKmonofont[Path = fonts/]{STHeiti.ttf}
+\else\ifusesystemcjkfonts
+    \setCJKmainfont[
+        BoldFont = STHeiti,
+        ItalicFont = STKaiti
+    ]{STSong}
+    \setCJKsansfont{STHeiti}
+    \setCJKmonofont{STHeiti}
+\else
+    \setCJKmainfont[
+        BoldFont = Noto Sans CJK SC,
+        ItalicFont = Noto Serif CJK SC
+    ]{Noto Serif CJK SC}
+    \setCJKsansfont{Noto Sans CJK SC}
+    \setCJKmonofont{Noto Sans CJK SC}
+\fi
+\fi
+
+% ── 页面布局 ──────────────────────────────────────────────
+\usepackage{geometry}
+\geometry{a4paper, left=1.5cm, right=1.5cm, top=1.5cm, bottom=1.5cm}
+
+% ── 颜色定义 ──────────────────────────────────────────────
+\usepackage{xcolor}
+\definecolor{sectioncolor}{RGB}{46,116,181}
+\definecolor{linkcolor}{RGB}{0,112,192}
+\definecolor{textcolor}{RGB}{0,0,0}
+
+% ── 标题格式 ──────────────────────────────────────────────
+\usepackage{titlesec}
+\titleformat{\section}
+    {\Large\bfseries\color{sectioncolor}}
+    {}
+    {0em}
+    {\uppercase}
+    [\vspace{-0.8em}\rule{\textwidth}{1pt}]
+\titlespacing{\section}{0pt}{0.1em}{0.1em}
+
+% ── 列表格式 ──────────────────────────────────────────────
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=*, nosep, topsep=0.2em, itemsep=0.1em, parsep=0em}
+
+% ── 图片与排版 ────────────────────────────────────────────
+\usepackage{graphicx}
+\setkeys{Gin}{draft=false}
+\usepackage[export]{adjustbox}
+\usepackage{calc}
+
+% ── 表格 ─────────────────────────────────────────────────
+\usepackage{tabularx}
+\usepackage{multirow}
+
+% ── 图标与超链接 ──────────────────────────────────────────
+\usepackage{fontawesome5}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=linkcolor, urlcolor=linkcolor}
+
+% ── 全局样式 ──────────────────────────────────────────────
+\color{textcolor}
+\linespread{1.15}
+\pagestyle{empty}
+
+% ── 自定义命令 ────────────────────────────────────────────
+\newcommand{\daterange}[1]{{\textbf{#1}}}
+\newcommand{\entrytitle}[1]{{\textbf{#1}}}
+
+% ============================================================
+\begin{document}
+% ============================================================
+
+% ── 个人信息头部：修改姓名、出生年月、电话、求职意向、邮箱和头像 ──
+\noindent
+\begin{minipage}[t]{0.7\textwidth}
+    \vspace*{-2.5em}
+    \begin{center}
+        {\Huge\bfseries\color{sectioncolor} 姓 名} \\[1.5em]
+        \hspace{3em}
+        \begin{tabular}{@{}ll@{\hspace{2.5em}}ll@{}}
+            \textbf{出生年月：} & XXXX.XX   & \textbf{电话：} & 1XX-XXXX-XXXX \\[0.4em]
+            \textbf{求职意向：} & XXXX岗位  & \textbf{邮箱：} & your.email@example.com \\
+        \end{tabular}
+    \end{center}
+\end{minipage}%
+\begin{minipage}[t]{0.3\textwidth}
+    \vspace*{-2.5em}
+    \begin{flushright}
+        \adjustbox{valign=t, raise=-0.7em}{
+            % 头像：替换为自己的图片；建议使用 3:4 左右的竖版证件照。
+            \includegraphics[width=2.8cm,height=3.3cm,keepaspectratio]{assets/profile-photo.png}
+        }
+    \end{flushright}
+\end{minipage}
+
+\vspace{0.3em}
+
+% ── 教育背景：替换学校、专业、时间、GPA、排名和主修课程 ──
+\section*{教育背景}
+\vspace{-0.3em}
+
+\noindent
+\begin{tabular}{@{}p{7cm}@{}}
+    \textbf{示例大学}
+\end{tabular}
+\begin{tabular}{@{}p{7cm}@{}}
+    \textbf{示例专业}
+\end{tabular}
+\hfill\textbf{20XX.09 \textasciitilde{} 20XX.06}
+
+\par\noindent
+$\bullet$ \textbf{GPA：}X.XX/X.X \hspace{4em} \textbf{专业排名：}前X\%
+
+\par\noindent
+$\bullet$ \textbf{主修课程：}课程一、课程二、课程三、课程四、课程五等。
+
+% ── 实习经历：保留两段示例，可替换单位、岗位、时间与量化成果 ──
+\section*{实习经历}
+\vspace{-0.1em}
+
+\noindent
+\entrytitle{XX证券股份有限公司 ｜ 实习生}
+\hfill \daterange{2025.07 \textasciitilde{} 2025.08}
+
+\par\noindent
+$\bullet$ \textbf{证券研究：}系统学习股票、基金等投资产品及监管框架，独立/协助收集、分类并结构化整理行业研报、公司公告与财务报表，累计形成20份研究材料，为行业比较和基本面分析提供标准化输入。
+
+\par\noindent
+$\bullet$ \textbf{数据分析：}使用Wind、Choice提取股票行情、估值指标、财务及行业对比数据，通过Excel、Python完成数据清洗、字段统一与透视汇总，构建标准化数据表，为行业横向比较和重点公司研究提供支持。
+
+\noindent
+\entrytitle{湖南XX科技股份有限公司 ｜ 后端开发实习生}
+\hfill \daterange{2024.07 \textasciitilde{} 2024.08}
+
+\par\noindent
+$\bullet$ \textbf{接口开发：}基于Spring Boot参与官网产品展示、案例查询等核心接口开发，独立完成请求参数校验、业务逻辑处理与标准化数据返回，保障接口稳定运行和数据传输准确。
+
+\par\noindent
+$\bullet$ \textbf{联调测试：}与前端协作梳理接口字段定义和完整调用流程，使用Postman设计并执行正常、边界及异常场景测试，快速定位并修复接口问题，提升联调效率与接口可靠性。
+
+% ── 项目经历：保留两段示例，可替换项目名称、角色、时间与成果 ──
+\section*{项目经历}
+\vspace{-0.1em}
+
+\noindent
+\entrytitle{MoonInk 基于人工智能的在线日记与待办管理系统 ｜ 核心成员}
+\hfill \daterange{2025.4 \textasciitilde{} 2025.06}
+
+\par\noindent
+$\bullet$ \textbf{项目概述：}基于Spring Boot、JPA与MySQL开发智能日记与任务管理平台，采用MVC架构与RESTful API设计，集成用户认证、日记管理、AI智能润色与情感分析、日历待办及管理员数据统计等功能，并通过Docker容器化部署至阿里云ECS，实现系统持续稳定运行。
+
+\par\noindent
+$\bullet$ \textbf{核心职责：}负责用户、日记与待办核心接口开发，集成阿里云通义千问（Qwen）API实现AI写作。
+
+\noindent
+\entrytitle{基于数据挖掘的电信客户流失分析与预测 ｜ 负责人}
+\hfill \daterange{2024.09 \textasciitilde{} 2024.12}
+
+\par\noindent
+$\bullet$ \textbf{项目概述：}使用Telco Customer Churn数据集（10121条数据，21个特征），对数据进行预处理和特征工程，通过PCA算法找到影响客户流失的主要因素，利用XGBoost分类器和随机森林，基于历史用户的特征，对电信用户的流失进行预测，为企业精准识别高风险客户并制定挽留策略提供数据支撑。
+
+\par\noindent
+$\bullet$ \textbf{核心职责：}负责数据清洗与特征工程全流程，完成XGBoost、随机森林模型构建、超参数调优与效果评估。
+
+% ── 校园经历：保留一段学生工作、社团或志愿服务经历 ────────
+\section*{校园经历}
+\vspace{-0.1em}
+
+\noindent
+\entrytitle{校团委学生会 ｜ 创新创业部部长}
+\hfill \daterange{2024.08 \textasciitilde{} 2024.10}
+
+\par\noindent
+$\bullet$ \textbf{团队管理：}统筹学生会组织纳新，包含纳新推文发布、面试流程制定与实施，协助团委老师完善部门内组织架构建设，进一步明晰部门内部的工作职责。
+
+\par\noindent
+$\bullet$ \textbf{活动组织：}统筹、协助组织完成吉首大学“挑战杯”竞赛、“起点创业坊”校园集市、迎新志愿活动等多个大型校园活动，累计覆盖全校师生参与人数超过10,000人。由部门主导的“起点创业坊”活动被评为全国优秀项目，个人累计支援时长201h。
+
+% ── 荣誉技能：替换证书、技能和获奖经历 ──────────────────
+\section*{荣誉技能}
+\vspace{-0.1em}
+\noindent $\bullet$ \textbf{专业证书：}CET-4（495）、CET-6（482）、IELTS（6.5）、普通话二级乙等。
+
+\noindent $\bullet$ \textbf{专业技能：}计算机（Java、Python、Linux、SQL）、Office（PPT、Excel）、其他（Hadoop、Git、Docker）。
+
+\noindent $\bullet$ \textbf{在校荣誉：}湖南省大学生数学建模竞赛一等奖、湖南省“挑战杯”大学生创业计划竞赛铜奖等十余项竞赛奖项，优秀共青团员（2023、2024）、优秀学生奖学金（2024、2025）、优秀学生干部（2022、2026）。
+
+\end{document}
