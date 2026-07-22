@@ -21,8 +21,8 @@ Chinese-resume-template-work/
 │   ├── profile-photo.png                # 简历头像（自行替换）
 │   └── resume-preview.png               # 简历预览图
 ├── fonts/                               # 可自行上传字体文件
-├── fushi-resume-template.tex            # 简历源文件
-├── fushi-resume-template.pdf            # 编译后的示例 PDF
+├── work-resume.tex                       # 简历源文件
+├── work-resume.pdf                       # 编译后的示例 PDF
 ├── .gitignore
 ├── LICENSE
 └── README.md
@@ -34,7 +34,7 @@ Chinese-resume-template-work/
 
 1. GitHub -> **Code -> Download ZIP**。
 2. [Overleaf](https://www.overleaf.com/) -> **New Project -> Upload Project**。
-3. 打开 `fushi-resume-template.tex`，将 Compiler 设为 **XeLaTeX**。
+3. 打开 `work-resume.tex`，将 Compiler 设为 **XeLaTeX**。
 4. 如需使用自定义字体，将字体文件上传至 `fonts/` 文件夹；根据注释完成个人信息、经历和头像的编辑。
 
 ### VS Code
@@ -46,7 +46,7 @@ Chinese-resume-template-work/
 
 ## 示例截图
 
-[查看示例 PDF](./fushi-resume-template.pdf)
+[查看示例 PDF](./work-resume.pdf)
 
 ![中文求职简历模板预览](./assets/resume-preview.png)
 
