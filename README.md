@@ -37,7 +37,7 @@ Chinese-resume-template-work/
 3. 打开 `work-resume.tex`，将 Compiler 设为 **XeLaTeX**。
 4. 如需使用自定义字体，将字体文件上传至 `fonts/` 文件夹；根据注释完成个人信息、经历和头像的编辑。
 
-### VS Code
+### VS Code （推荐）
 
 1. 下载并解压项目，用 VS Code 打开整个文件夹。
 2. 安装 LaTeX 发行版和 [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop) 扩展。
