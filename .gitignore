@@ -8,3 +8,8 @@
 *.fls
 *.fdb_latexmk
 missfont.log
+
+# Local originals and generated previews
+source-resume.docx
+/tmp/
+/output/
