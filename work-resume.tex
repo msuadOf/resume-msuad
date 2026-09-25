@@ -119,7 +119,7 @@
         {\Huge\bfseries\color{sectioncolor} 白逸凡} \\[1.0em]
         \begin{tabular}{@{}ll@{\hspace{2.5em}}ll@{}}
             \textbf{出生日期：} & 2003.09.03 & \textbf{电话：} & 173-2791-2445 \\[0.4em]
-            \textbf{个人主页：} & example.com & \textbf{邮箱：} & 1445617868@qq.com \\
+            \textbf{个人主页：} & \href{https://blog.msuad.top/resume-msuad/}{blog.msuad.top/resume-msuad} & \textbf{邮箱：} & 1445617868@qq.com \\
         \end{tabular}
     \end{center}
 \end{minipage}
@@ -131,7 +131,7 @@
 \vspace{-0.3em}
 
 \noindent
-\entrytitle{中国科学院大学信息工程研究所 ｜ 网络信息与安全（硕士）}
+\entrytitle{中国科学院大学信息工程研究所 ｜ 网络信息与安全（硕士） ｜ 体系结构安全组（国重）}
 \hfill \daterange{2025.09 \textasciitilde{} 至今}
 
 \noindent
@@ -139,7 +139,7 @@
 \hfill \daterange{2021.09 \textasciitilde{} 2025.06}
 
 \par\noindent
-$\bullet$ \textbf{GPA：}3.61 / 5.0（专业前 20\%） \hspace{2em} \textbf{主修课程：}数据结构、计算机组成原理、微机原理、半导体物理与器件等。
+$\bullet$ \textbf{GPA：}3.61 / 5.0（专业前 20\%） \hspace{0.5em} \textbf{主修课程：}数据结构、计算机组成原理、微机原理、半导体物理与器件等。
 
 % ── 实习经历 ──────────────────────────────────────────────
 \section*{实习经历}
@@ -155,6 +155,25 @@ $\bullet$ \textbf{CPU 测试与工具链：}围绕项目组 CPU 核开展功能�
 \par\noindent
 $\bullet$ \textbf{车规虚拟化：}基于 ARM-R52 与 bao-hypervisor 调研车机 ECU 芯片虚拟化；梳理 RISC-V 移植所需能力，分析不同 vCPU 调度与动态绑定场景下的功能取舍，掌握特权级虚拟化、内存保护与中断注入等软硬件协同设计思路。
 
+% ── 学术经历 ──────────────────────────────────────────────
+\section*{学术经历}
+\vspace{-0.1em}
+
+\noindent
+\entrytitle{NACRE: Rethinking Confidential Containers through Native Architectural Support}
+\hfill \daterange{2026.08 \textasciitilde{} 至今}
+
+\par\noindent
+$\bullet$ 负责将 QEMU 原型中的相关功能移植到 BOOM 处理器，并根据实现需求重构部分设计；基于 FireSim 完成 FPGA 上板部署。
+
+\par\addvspace{0.35\baselineskip}
+\noindent
+\entrytitle{CPU Fuzzing ｜ RISC-V ISA 层错误检测}
+\hfill \daterange{2025.09 \textasciitilde{} 至今}
+
+\par\noindent
+$\bullet$ 以 RISC-V 标准为依据开展 CPU fuzzing，寻找指令集架构（ISA）层面的行为错误。
+
 % ── 项目经历 ──────────────────────────────────────────────
 \section*{项目经历}
 \vspace{-0.1em}
@@ -167,18 +186,7 @@ $\bullet$ \textbf{车规虚拟化：}基于 ARM-R52 与 bao-hypervisor 调研车
 $\bullet$ \textbf{处理器实现：}完成 RV32IM 指令集模拟器，以 Spike 为 reference 验证正确性；使用 Chisel 以指令组织方式实现 CPU，并在 Verilator 上以自研模拟器为 reference 验证 HDL 实现。
 
 \par\noindent
-$\bullet$ \textbf{系统软件与验证：}开发处理器测试工具 Difftest，移植并成功启动 RT-Thread；掌握 RISC-V 指令集、处理器设计与 Chisel 数字电路开发流程。
-
-\par\addvspace{0.65\baselineskip}
-\noindent
-\entrytitle{全国大学生电子设计大赛（电力电子）｜ 软件成员}
-\hfill \daterange{2023.07 \textasciitilde{} 2023.08}
-
-\par\noindent
-$\bullet$ \textbf{嵌入式开发：}参与三端口 DC-DC、双向无桥 PFC 与双模式逆变器开发；负责 STM32G474 / TI F280039C 的 ADC、定时器与 DMA 驱动。
-
-\par\noindent
-$\bullet$ \textbf{项目成果：}DC-DC 效率不低于 99\%，纹波远低于 5mV；PFC THD 远低于 0.2\%，逆变器效率不低于 98\%，获 2023 年电子设计大赛省一等奖。
+$\bullet$ \textbf{系统软件与验证：}开发处理器测试工具 Difftest，移植并成功启动 RT-Thread；为自己写的模拟器添加csr和页表支持并通过opensbi启动linux进入shell。
 
 \par\addvspace{0.65\baselineskip}
 \noindent
@@ -207,7 +215,7 @@ $\bullet$ \textbf{数字设计与验证：}完成 16×16 多端口 SRAM 控制�
 \hfill \daterange{2022.09 \textasciitilde{} 2023.06}
 
 \par\noindent
-$\bullet$ \textbf{组织与教学：}负责社团日常运营及面向大一学生的授课；策划校“科技节”中的“鲁班电子”与“电子之声”比赛，保障赛程顺利推进。
+$\bullet$ \textbf{组织与教学：}负责社团日常运营及面向大一学生的授课；策划校“科技节”中的比赛，保障赛程顺利推进。
 
 % ── 荣誉技能：替换证书、技能和获奖经历 ──────────────────
 \section*{专业素养}
