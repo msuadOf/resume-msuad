@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Yifan Bai's personal website. Research interests include RISC-V processors, systems software, and architectural security.">
+  <title>Yifan Bai | Processor Design &amp; Architectural Security</title>
+  <link rel="alternate" hreflang="en" href="index.html">
+  <link rel="alternate" hreflang="zh-CN" href="zh/index.html">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <main class="page" id="main">
+    <nav class="language-switch" aria-label="Language selection">
+      <span aria-current="page">English</span>
+      <span aria-hidden="true">/</span>
+      <a href="zh/index.html" lang="zh-CN">中文</a>
+    </nav>
+    <header class="intro" aria-labelledby="name">
+      <div class="intro-main">
+        <h1 id="name">Yifan Bai <span>白逸凡</span></h1>
+        <p>I am a master's student in Network and Information Security at the Institute of Information Engineering, University of Chinese Academy of Sciences. My research focuses on architectural security, including processor support for confidential containers and prototyping and FPGA validation with the BOOM processor.</p>
+        <nav class="contact-links" aria-label="Contact and page navigation">
+          <a href="mailto:1445617868@qq.com">Email</a><span aria-hidden="true">/</span>
+          <a href="https://github.com/msuadOf">GitHub</a><span aria-hidden="true">/</span>
+          <a href="#projects">Projects</a><span aria-hidden="true">/</span>
+          <a href="#experience">Experience</a>
+        </nav>
+      </div>
+      <div class="intro-aside" aria-label="Research interests">
+        <span class="aside-label">INTERESTS</span>
+        <span>RISC-V</span><span>Processor design</span><span>Architectural security</span><span>Hardware–software verification</span>
+      </div>
+    </header>
+
+    <section class="section" id="research" aria-labelledby="research-title">
+      <h2 id="research-title">Research Interests</h2>
+      <p>I am interested in how processor mechanisms can support more secure systems software. My current work explores native architectural support for confidential containers and checks implementations across executable models, RTL, and FPGA prototypes.</p>
+    </section>
+
+    <section class="section" id="projects" aria-labelledby="projects-title">
+      <h2 id="projects-title">Research &amp; Projects</h2>
+      <div class="entries">
+        <article class="entry">
+          <div class="entry-meta">Aug 2026 — Present <span>Ongoing research</span></div>
+          <div class="entry-content">
+            <h3>NACRE: Rethinking Confidential Containers through Native Architectural Support</h3>
+            <p class="entry-context">Architectural security · UCAS</p>
+            <p>Porting functionality from a QEMU prototype to the BOOM processor and revising parts of the design to meet implementation needs; deploying the prototype to an FPGA with FireSim.</p>
+            <p class="entry-tools">BOOM · QEMU · FireSim · FPGA</p>
+          </div>
+        </article>
+        <article class="entry">
+          <div class="entry-meta">Sep 2023 — Sep 2025</div>
+          <div class="entry-content">
+            <h3>“One Student, One Chip” — RISC-V Processor Design</h3>
+            <p class="entry-context">Processor implementation and system validation</p>
+            <p>Built an RV32IM instruction set simulator and checked it against Spike. Implemented a CPU in Chisel and validated it with Verilator and Difftest. Ported RT-Thread, added CSR and page table support to the simulator, and booted Linux to a shell through OpenSBI.</p>
+            <p class="entry-tools">RISC-V · Chisel · Verilator · Difftest · Linux</p>
+          </div>
+        </article>
+        <article class="entry">
+          <div class="entry-meta">Mar 2022 — Jun 2024</div>
+          <div class="entry-content">
+            <h3>SRAM Controller &amp; JPEG-LS Compression IP</h3>
+            <p class="entry-context">National College Integrated Circuit Innovation and Entrepreneurship Competition · FPGA team member</p>
+            <p>Designed and verified a 16×16 multi-port SRAM controller in Verilog RTL and SVA. Contributed to the C/C++ model, Verilog IP, and AXI4 integration of a JPEG-LS image compression core, followed by FPGA loopback testing on an MPSoC. The project won a provincial second prize.</p>
+            <p class="entry-tools">Verilog · SVA · AXI4 · MPSoC</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="experience" aria-labelledby="experience-title">
+      <h2 id="experience-title">Experience</h2>
+      <div class="entries compact">
+        <article class="entry"><div class="entry-meta">Sep 2025 — Present</div><div class="entry-content"><h3>Institute of Information Engineering, UCAS</h3><p>Master's student in Network and Information Security, Architectural Security Group.</p></div></article>
+        <article class="entry"><div class="entry-meta">Feb 2025 — Jul 2025</div><div class="entry-content"><h3>Beijing Institute of Open Source Chip · Embedded Software Intern</h3><p>Worked on CPU functional testing, code compression research, and compiler toolchain tuning. Studied automotive virtualization based on ARM-R52 and bao-hypervisor, including requirements for a RISC-V port.</p></div></article>
+        <article class="entry"><div class="entry-meta">Sep 2021 — Jun 2025</div><div class="entry-content"><h3>Nanjing University of Posts and Telecommunications</h3><p>Bachelor's degree in Electronic Science and Technology.</p></div></article>
+      </div>
+    </section>
+
+    <section class="section section-end" aria-labelledby="more-title">
+      <h2 id="more-title">Other</h2>
+      <p>I served as head and instructor of the Electronics Division of the student science and technology association at Nanjing University of Posts and Telecommunications, teaching new students and helping organize a campus technology competition. I work with C, Python, Scala (Chisel), Verilog, Linux, Git, Makefile, and Verilator.</p>
+      <p>Honors include a national first prize in the EDA Elite Challenge and a provincial first prize in the Electronic Design Competition.</p>
+    </section>
+
+    <footer class="footer"><span>© 2026 Yifan Bai</span><a href="#main">Back to top ↑</a></footer>
+  </main>
+</body>
+</html>

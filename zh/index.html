@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="白逸凡的个人主页。关注 RISC-V 处理器、系统软件与体系结构安全。">
+  <title>白逸凡 | 处理器与体系结构安全</title>
+  <link rel="alternate" hreflang="en" href="../index.html">
+  <link rel="alternate" hreflang="zh-CN" href="index.html">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到正文</a>
+  <main class="page" id="main">
+    <nav class="language-switch" aria-label="语言选择">
+      <a href="../index.html" lang="en">English</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">中文</span>
+    </nav>
+    <header class="intro" aria-labelledby="name">
+      <div class="intro-main">
+        <h1 id="name">白逸凡 <span>Bai Yifan</span></h1>
+        <p>我在中国科学院大学信息工程研究所攻读网络信息与安全硕士，研究方向是体系结构安全。目前的工作涉及机密容器的处理器支持、BOOM 处理器原型与 FPGA 验证。</p>
+        <nav class="contact-links" aria-label="联系方式和页面导航">
+          <a href="mailto:1445617868@qq.com">邮箱</a><span aria-hidden="true">/</span>
+          <a href="https://github.com/msuadOf">GitHub</a><span aria-hidden="true">/</span>
+          <a href="#projects">项目</a><span aria-hidden="true">/</span>
+          <a href="#experience">经历</a>
+        </nav>
+      </div>
+      <div class="intro-aside" aria-label="关注方向">
+        <span class="aside-label">INTERESTS</span>
+        <span>RISC-V</span><span>处理器设计</span><span>体系结构安全</span><span>软硬件协同验证</span>
+      </div>
+    </header>
+
+    <section class="section" id="research" aria-labelledby="research-title">
+      <h2 id="research-title">研究方向</h2>
+      <p>我关心处理器提供的机制如何支撑更安全的系统软件。当前重点是机密容器的原生体系结构支持，以及设计在可执行模型、RTL 和 FPGA 上的一致性验证。</p>
+    </section>
+
+    <section class="section" id="projects" aria-labelledby="projects-title">
+      <h2 id="projects-title">研究与项目</h2>
+      <div class="entries">
+        <article class="entry">
+          <div class="entry-meta">2026.08 — 至今 <span>研究中</span></div>
+          <div class="entry-content">
+            <h3>NACRE: Rethinking Confidential Containers through Native Architectural Support</h3>
+            <p class="entry-context">体系结构安全 · 中国科学院大学</p>
+            <p>将 QEMU 原型中的相关功能移植到 BOOM 处理器，并根据实现需求重构部分设计；基于 FireSim 完成 FPGA 上板部署。</p>
+            <p class="entry-tools">BOOM · QEMU · FireSim · FPGA</p>
+          </div>
+        </article>
+        <article class="entry">
+          <div class="entry-meta">2023.09 — 2025.09</div>
+          <div class="entry-content">
+            <h3>“一生一芯”：RISC-V 处理器设计</h3>
+            <p class="entry-context">处理器实现与系统验证</p>
+            <p>完成 RV32IM 指令集模拟器，以 Spike 验证正确性；使用 Chisel 实现 CPU，并通过 Verilator 和 Difftest 验证。移植 RT-Thread，为模拟器加入 CSR 与页表支持，经 OpenSBI 启动 Linux 进入 Shell。</p>
+            <p class="entry-tools">RISC-V · Chisel · Verilator · Difftest · Linux</p>
+          </div>
+        </article>
+        <article class="entry">
+          <div class="entry-meta">2022.03 — 2024.06</div>
+          <div class="entry-content">
+            <h3>SRAM 控制器与 JPEG-LS 图像压缩 IP</h3>
+            <p class="entry-context">全国大学生集成电路创新创业大赛 · FPGA 成员</p>
+            <p>完成 16×16 多端口 SRAM 控制器的 Verilog RTL 与 SVA 验证；参与 JPEG-LS 图像压缩 IP 的 C/C++ 模型、Verilog 实现及 AXI4 集成，并在 MPSoC 上完成 FPGA 回环测试。项目获得省级二等奖。</p>
+            <p class="entry-tools">Verilog · SVA · AXI4 · MPSoC</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="experience" aria-labelledby="experience-title">
+      <h2 id="experience-title">经历</h2>
+      <div class="entries compact">
+        <article class="entry"><div class="entry-meta">2025.09 — 至今</div><div class="entry-content"><h3>中国科学院大学 · 信息工程研究所</h3><p>网络信息与安全硕士，体系结构安全组。</p></div></article>
+        <article class="entry"><div class="entry-meta">2025.02 — 2025.07</div><div class="entry-content"><h3>北京开源芯片研究院 · 嵌入式软件实习生</h3><p>参与 CPU 功能测试、代码压缩方案研究和编译器工具链调优；基于 ARM-R52 与 bao-hypervisor 调研车规虚拟化及 RISC-V 移植需求。</p></div></article>
+        <article class="entry"><div class="entry-meta">2021.09 — 2025.06</div><div class="entry-content"><h3>南京邮电大学</h3><p>电子科学与技术本科。</p></div></article>
+      </div>
+    </section>
+
+    <section class="section section-end" aria-labelledby="more-title">
+      <h2 id="more-title">其他</h2>
+      <p>曾任南京邮电大学大学生科协电子部部长与讲师，负责授课和科技节比赛组织。熟悉 C、Python、Scala（Chisel）、Verilog，以及 Linux、Git、Makefile 和 Verilator。</p>
+      <p>获 EDA 精英挑战赛国家一等奖、电子设计大赛省一等奖等荣誉。</p>
+    </section>
+
+    <footer class="footer"><span>© 2026 白逸凡</span><a href="#main">返回顶部 ↑</a></footer>
+  </main>
+</body>
+</html>
