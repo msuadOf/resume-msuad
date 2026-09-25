@@ -26,4 +26,4 @@
 
 本地预览：在仓库目录运行 `python3 -m http.server 8000`，然后打开 `http://localhost:8000/`。
 
-GitHub Pages 从本仓库的 `main` 分支根目录发布。更新主页后将网页文件提交并推送到 `main`，Pages 会自动重新发布。
+GitHub Pages 从本仓库的 `main` 分支根目录发布：[英文主页](https://blog.msuad.top/resume-msuad/)和[中文主页](https://blog.msuad.top/resume-msuad/zh/)。更新主页后将网页文件提交并推送到 `main`，Pages 会自动重新发布。
