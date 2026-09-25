@@ -18,7 +18,7 @@
 
 字体默认使用 macOS 华文系列与 Times New Roman；其他环境需安装源文件指定的 Noto CJK 字体，或提供已授权的自定义字体。
 
-临时文件与配色预览不纳入版本管理。仓库包含个人联系方式，建议使用私有远程仓库。
+临时文件与配色预览不纳入版本管理。本仓库公开，简历 PDF 和源文件中的个人联系方式也随之公开。
 
 ## 个人主页（GitHub Pages）
 
@@ -26,4 +26,4 @@
 
 本地预览：在仓库目录运行 `python3 -m http.server 8000`，然后打开 `http://localhost:8000/`。
 
-公开版本位于 [msuadOf/personal-homepage](https://github.com/msuadOf/personal-homepage)。当前 GitHub 方案不支持从本私有仓库直接启用 Pages；更新网页时，将 `index.html`、`styles.css` 和 `zh/index.html` 同步到该公开仓库并推送 `main`，GitHub Pages 会从公开仓库根目录发布。简历 PDF 和 LaTeX 源文件不在公开仓库中。
+GitHub Pages 从本仓库的 `main` 分支根目录发布。更新主页后将网页文件提交并推送到 `main`，Pages 会自动重新发布。
