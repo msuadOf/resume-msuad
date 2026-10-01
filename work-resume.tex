@@ -16,7 +16,7 @@
 % ── 字体设置 ──────────────────────────────────────────────
 % 若需在 Overleaf 使用自定义字体，可将已授权的字体文件放入 fonts/ 文件夹，
 % 并按 STSong.ttf、STHeiti.ttf、STKaiti.ttf 命名；macOS 本地默认使用系统华文系列。
-\IfFontExistsTF{Times New Roman}{\setmainfont{Times New Roman}}{}
+\IfFontExistsTF{Times New Roman}{\setmainfont{Times New Roman}}{\setmainfont{TeX Gyre Termes}}
 
 \newif\ifuseuploadedcjkfonts
 \IfFileExists{fonts/STSong.ttf}{
@@ -98,8 +98,14 @@
 
 % ── 全局样式 ──────────────────────────────────────────────
 \color{textcolor}
-% 中文字符间距：在默认字宽基础上增加 0.15em，使视觉字距约为原来的 1.5 倍。
-\xeCJKsetup{CJKglue = \hskip 0.15em}
+% 华文字体适当增加字距；Linux 上的 Noto 字体保持默认字距，避免长标题换行。
+\ifuseuploadedcjkfonts
+    \xeCJKsetup{CJKglue = \hskip 0.15em}
+\else\ifusesystemcjkfonts
+    \xeCJKsetup{CJKglue = \hskip 0.15em}
+\else
+    \xeCJKsetup{CJKglue = \hskip 0em}
+\fi\fi
 \linespread{1.00}
 \pagestyle{empty}
 
