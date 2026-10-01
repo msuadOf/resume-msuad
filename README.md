@@ -26,4 +26,6 @@
 
 本地预览：在仓库目录运行 `python3 -m http.server 8000`，然后打开 `http://localhost:8000/`。
 
-GitHub Pages 从本仓库的 `main` 分支根目录发布：[英文主页](https://blog.msuad.top/resume-msuad/)和[中文主页](https://blog.msuad.top/resume-msuad/zh/)。更新主页后将网页文件提交并推送到 `main`，Pages 会自动重新发布。
+推送到 `main` 后，GitHub Actions 会使用 XeLaTeX 从 `work-resume.tex` 编译 PDF，再将英文主页、中文主页和新生成的 PDF 一起发布到 GitHub Pages：[英文主页](https://blog.msuad.top/resume-msuad/)和[中文主页](https://blog.msuad.top/resume-msuad/zh/)。两个主页顶部都提供 PDF 下载链接。也可以在 Actions 中手动运行部署流程。
+
+仓库中的 `work-resume.pdf` 是便于直接查看的本地编译版本；线上下载文件以 Actions 在部署时从 `work-resume.tex` 编译的结果为准。发布流程需要将仓库的 Pages 构建来源设为 GitHub Actions。
