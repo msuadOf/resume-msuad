@@ -1,10 +1,10 @@
 \ifresumefrontier
-\resumeentry{“一生一芯”（ysyx）｜ RISC-V CPU/SoC 软硬件系统}{2023.09 \textasciitilde{} 2025.09}
+\resumeentry{“一生一芯”（ysyx）｜ “从0开始创造 RISC-V 软硬件系统”}{2023.09 \textasciitilde{} 2025.09}
 \resumeitem{\textbf{RTL 实现与差分验证：}基于 Chisel 实现 RISC-V CPU，使用 Verilator 进行 RTL 仿真，通过自研 Difftest 与指令集模拟器开展差分验证。}
 \resumeitem{\textbf{ISA 模拟器与架构功能：}实现 RV32IM 指令集模拟器，以 Spike 为参考验证指令行为；扩展 CSR 与页表支持，为系统软件运行提供架构功能。}
-\resumeitem{\textbf{系统软件运行：}移植并启动 RT-Thread；在自研模拟器上通过 OpenSBI 启动 Linux，进入 Shell 交互环境。}
+\resumeitem{\textbf{系统软件运行：}移植并启动 RT-Thread；在自研模拟器上通过 OpenSBI 启动 Linux，进入 Shell 环境。}
 \else
-\resumeentry{“一生一芯” ｜ 处理器与系统软件开发}{2023.09 \textasciitilde{} 2025.09}
-\resumeitem{\textbf{处理器实现与验证：}实现 RISC-V CPU 与指令集模拟器，开展仿真及差分验证，覆盖硬件实现与指令行为检查。}
-\resumeitem{\textbf{系统运行成果：}完成 RT-Thread 移植与启动；在自研模拟器上启动 Linux 并进入 Shell 交互环境，完成从指令模拟到系统运行的验证。}
+\resumeentry{“一生一芯” ｜ “从0开始创造 RISC-V 软硬件系统”}{2023.09 \textasciitilde{} 2025.09}
+\resumeitem{\textbf{处理器实现与验证：}实现 RISC-V CPU RTL与指令集模拟器，开展仿真及差分验证。}
+\resumeitem{\textbf{系统运行成果：}在RTL仿真中完成 RT-Thread 移植与启动；在自研模拟器上启动 Linux 并进入 Shell 环境，完成从指令模拟到OS运行的验证。}
 \fi
