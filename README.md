@@ -2,23 +2,61 @@
 
 基于 [kody1126/Chinese-resume-template-work](https://github.com/kody1126/Chinese-resume-template-work) 定制，保留原项目 MIT 许可证。
 
+## 四种简历
+
+版本名为 `resume-{frontier|general}-{arch|full}`，两个维度独立选择：
+
+| 维度 | 选项 | 内容 |
+| --- | --- | --- |
+| 表达侧重 | `frontier` | 保留体系结构、RTL、ISA、虚拟化和软硬件协同的技术细节 |
+| 表达侧重 | `general` | 用更通用的语言说明职责、开发工作和阶段成果 |
+| 经历范围 | `arch` | 现有体系结构相关经历：开源芯片研究院、NACRE、CPU Fuzzing、一生一芯、存储控制器及 JPEG-LS IP |
+| 经历范围 | `full` | 在 arch 的基础上，参考原始 Word 资料补回电力电子电赛、Cortex-M0 无线 SoC、电磁循迹小车、校园经历，以及单片机和 PCB 技能 |
+
+各版本由 LaTeX 根据内容自然分页，不设置强制分页，也不重复添加章节标题。两种表达侧重使用相同的事实范围。
+
+## TeX 复用结构
+
+```text
+resume-frontier-arch.tex  ┐
+resume-frontier-full.tex  ├─ 设置 resumeaudience / resumescope
+resume-general-arch.tex  │
+resume-general-full.tex  ┘
+    └─ tex/resume.tex              版本判断、章节顺序、条件纳入与分页
+        ├─ tex/preamble.tex        共享字体、颜色、页边距和排版命令
+        └─ tex/content/*.tex       按经历拆分的正文
+```
+
+四个入口文件只设置两个选项并通过 `\input` 引用共享模板，不复制正文。`tex/content/profile.tex` 统一维护个人信息和教育背景；其他文件按实习、科研、具体项目、校园经历和技能拆分。某条经历需要不同措辞时，在同一内容文件内使用 `\ifresumefrontier ... \else ... \fi`。完整经历与技能补充通过 `\ifresumefull` 控制。
+
+修改某条经历只需编辑对应的内容文件；修改章节顺序或分页只需编辑 `tex/resume.tex`；修改字体、颜色或边距只需编辑 `tex/preamble.tex`。
+
 ## 构建
 
-安装 MacTeX 或包含 XeLaTeX 的 TeX Live 后，在仓库目录执行 `./build.sh`。
+安装 MacTeX 或包含 XeLaTeX 的 TeX Live 后，在仓库目录执行：
 
-脚本编译两遍，生成 `work-resume.pdf`，成功后清理中间文件；失败时保留日志。
+```bash
+./build.sh                        # 编译四种版本
+./build.sh resume-frontier-arch    # 只编译一个版本
+./build.sh resume-general-full
+```
 
-## 文件与版本管理
+脚本对每个版本编译两遍，在仓库根目录生成同名 PDF，成功后清理中间文件，失败时保留日志。也可以在仓库根目录直接运行 `xelatex resume-frontier-arch.tex` 等命令。
 
-- `work-resume.tex`：正文与排版配置。
-- `work-resume.pdf`：最新编译结果，与源文件一起提交。
-- `build.sh`：构建脚本。
-- `fonts/`：可选自定义字体目录。
-- `source-resume.docx`：原始资料，仅本地保留，已忽略。
+编辑时可启动自动监听，无需安装额外工具：
 
-字体默认使用 macOS 华文系列与 Times New Roman；其他环境需安装源文件指定的 Noto CJK 字体，或提供已授权的自定义字体。
+```bash
+./watch.sh                        # 监听修改并更新全部版本
+./watch.sh resume-frontier-full   # 只更新指定版本
+```
 
-临时文件与配色预览不纳入版本管理。本仓库公开，简历 PDF 和源文件中的个人联系方式也随之公开。
+监听脚本启动时先编译一次，之后每秒检查 TeX 源文件、字体和 `build.sh` 的内容变化，合并短时间内的连续保存后重新编译。新增或删除源文件也会触发更新；生成的 PDF 和日志不会触发循环编译。编译失败时继续监听，修正并保存后自动重试；编译过程中保存的修改会在本次编译结束后再次触发更新。按 `Ctrl+C` 停止。两个脚本均可从其他目录通过路径启动。
+
+主页下载链接直接使用 `resume-frontier-arch.pdf`。旧的 `work-resume-frontier.tex` 和 `work-resume-general.tex` 分别指向对应的 arch 版，也不再维护独立正文。
+
+字体默认使用 macOS 华文系列与 Times New Roman；其他环境需安装 `tex/preamble.tex` 指定的 Noto CJK 字体，或在 `fonts/` 中提供已授权的自定义字体。
+
+`source-resume.docx` 是原始资料，仅本地保留，已忽略。临时文件与配色预览不纳入版本管理。本仓库公开，简历 PDF 和源文件中的个人联系方式也随之公开。
 
 ## 个人主页（GitHub Pages）
 
@@ -26,6 +64,6 @@
 
 本地预览：在仓库目录运行 `python3 -m http.server 8000`，然后打开 `http://localhost:8000/`。
 
-推送到 `main` 后，GitHub Actions 会使用 XeLaTeX 从 `work-resume.tex` 编译 PDF，再将英文主页、中文主页和新生成的 PDF 一起发布到 GitHub Pages：[英文主页](https://blog.msuad.top/resume-msuad/)和[中文主页](https://blog.msuad.top/resume-msuad/zh/)。两个主页顶部都提供 PDF 下载链接。也可以在 Actions 中手动运行部署流程。
+推送到 `main` 后，GitHub Actions 会使用 XeLaTeX 编译四种简历，再将英文主页、中文主页和新生成的 PDF 一起发布到 GitHub Pages：[英文主页](https://blog.msuad.top/resume-msuad/)和[中文主页](https://blog.msuad.top/resume-msuad/zh/)。两个主页顶部都提供 PDF 下载链接。也可以在 Actions 中手动运行部署流程。
 
-仓库中的 `work-resume.pdf` 是便于直接查看的本地编译版本；线上下载文件以 Actions 在部署时从 `work-resume.tex` 编译的结果为准。发布流程需要将仓库的 Pages 构建来源设为 GitHub Actions。
+仓库中的四份 PDF 是便于直接查看的本地编译版本；线上下载文件以 Actions 在部署时从对应 TeX 入口编译的结果为准。发布流程需要将仓库的 Pages 构建来源设为 GitHub Actions。

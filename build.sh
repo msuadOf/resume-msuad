@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build the resume PDF with XeLaTeX. Run from any directory: ./build.sh
+# Build all variants, or one named variant, with XeLaTeX.
 set -euo pipefail
 
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -15,8 +15,34 @@ command -v xelatex >/dev/null || {
   exit 1
 }
 
-xelatex -interaction=nonstopmode -halt-on-error work-resume.tex
-xelatex -interaction=nonstopmode -halt-on-error work-resume.tex
+if [[ $# -gt 1 ]]; then
+  echo "Usage: $0 [all|resume-{frontier|general}-{arch|full}]" >&2
+  exit 2
+fi
 
-rm -f work-resume.aux work-resume.log work-resume.out
-echo "Built: $script_dir/work-resume.pdf"
+target="${1:-all}"
+case "$target" in
+  all)
+    targets=(resume-frontier-arch resume-frontier-full resume-general-arch resume-general-full)
+    ;;
+  resume-frontier-arch|resume-frontier-full|resume-general-arch|resume-general-full|work-resume-frontier|work-resume-general)
+    targets=("$target")
+    ;;
+  *)
+    echo "Unknown variant: $target" >&2
+    echo "Usage: $0 [all|resume-{frontier|general}-{arch|full}]" >&2
+    exit 2
+    ;;
+esac
+
+for resume in "${targets[@]}"; do
+  for pass in 1 2; do
+    if ! xelatex -interaction=nonstopmode -halt-on-error "$resume.tex" >"$resume.build.log" 2>&1; then
+      cat "$resume.build.log" >&2
+      echo "Build failed; retained $resume.log and $resume.build.log" >&2
+      exit 1
+    fi
+  done
+  rm -f "$resume.aux" "$resume.log" "$resume.out" "$resume.build.log"
+  echo "Built: $script_dir/$resume.pdf"
+done

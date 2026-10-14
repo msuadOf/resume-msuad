@@ -1,0 +1,80 @@
+% 两个正交维度：audience 控制技术措辞，scope 控制经历范围。
+% 直接打开共享模板时采用默认版本；四个入口的显式配置优先。
+\providecommand*{\resumeaudience}{frontier}
+\providecommand*{\resumescope}{arch}
+\newif\ifresumefrontier
+\newif\ifresumefull
+\def\frontieraudience{frontier}
+\def\generalaudience{general}
+\def\fullscope{full}
+\def\archscope{arch}
+\ifx\resumeaudience\frontieraudience
+  \resumefrontiertrue
+\else
+  \ifx\resumeaudience\generalaudience\else
+    \errmessage{Unknown resume audience; use frontier or general}
+  \fi
+\fi
+\ifx\resumescope\fullscope
+  \resumefulltrue
+\else
+  \ifx\resumescope\archscope\else
+    \errmessage{Unknown resume scope; use arch or full}
+  \fi
+\fi
+\input{tex/preamble.tex}
+\ifresumefull
+  \linespread{1.18}
+  \titlespacing{\section}{0pt}{0.5em}{0.35em}
+\fi
+\newcommand{\resumesection}[1]{\section*{#1}\vspace{-0.1em}}
+\newcommand{\entrygap}{\par\addvspace{0.45\baselineskip}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+% 自然分页时避免把两行说明拆成页末一行、下页一行。
+\clubpenalty=10000
+\widowpenalty=10000
+\newsavebox{\resumeentrytitlebox}
+\newsavebox{\resumeentrydatebox}
+% 短标题与日期同一行；长标题完整显示，日期另起一行右对齐。
+\newcommand{\resumeentry}[2]{%
+  \par
+  \sbox{\resumeentrytitlebox}{\entrytitle{#1}}%
+  \sbox{\resumeentrydatebox}{\daterange{#2}}%
+  \noindent
+  \ifdim\dimexpr\wd\resumeentrytitlebox+\wd\resumeentrydatebox+1em\relax>\linewidth
+    \entrytitle{#1}\par\nopagebreak
+    \noindent\hfill\usebox{\resumeentrydatebox}%
+  \else
+    \usebox{\resumeentrytitlebox}\hfill\usebox{\resumeentrydatebox}%
+  \fi
+  \par\nopagebreak
+}
+% 项目符号占一格，续行与正文对齐；不额外增加段落空行。
+\newcommand{\resumeitem}[1]{%
+  \par\noindent\hangindent=1em\hangafter=1
+  \makebox[1em][l]{$\bullet$}#1\par
+}
+\begin{document}
+\input{tex/content/profile.tex}
+\resumesection{实习经历}
+\input{tex/content/internship.tex}
+\resumesection{科研经历}
+\input{tex/content/research.tex}
+\resumesection{项目经历}
+\input{tex/content/ysyx.tex}
+\entrygap
+\ifresumefull
+  \input{tex/content/electronics.tex}
+  \entrygap
+\fi
+\input{tex/content/ic-competition.tex}
+\ifresumefull
+  \entrygap
+  \input{tex/content/line-following.tex}
+  \resumesection{校园经历}
+  \input{tex/content/campus.tex}
+\fi
+\resumesection{专业技能与荣誉}
+\input{tex/content/skills.tex}
+\end{document}

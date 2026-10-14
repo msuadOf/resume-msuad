@@ -1,0 +1,111 @@
+% !TEX program = xelatex
+% =============================================================================
+% 中文求职简历 LaTeX 模板
+% Author: Kody
+% Repository: https://github.com/kody1126/Chinese-resume-template-work
+% Compiler: XeLaTeX
+%
+% 共享排版配置；正文见 tex/content，版本选择见 resume-*.tex。
+% =============================================================================
+\documentclass[11pt,a4paper,fontset=none]{ctexart}
+
+% ── 字体设置 ──────────────────────────────────────────────
+% 若需在 Overleaf 使用自定义字体，可将已授权的字体文件放入 fonts/ 文件夹，
+% 并按 STSong.ttf、STHeiti.ttf、STKaiti.ttf 命名；macOS 本地默认使用系统华文系列。
+\IfFontExistsTF{Times New Roman}{\setmainfont{Times New Roman}}{\setmainfont{TeX Gyre Termes}}
+
+\newif\ifuseuploadedcjkfonts
+\IfFileExists{fonts/STSong.ttf}{
+    \IfFileExists{fonts/STHeiti.ttf}{
+        \IfFileExists{fonts/STKaiti.ttf}{\useuploadedcjkfontstrue}{}
+    }{}
+}{}
+
+\newif\ifusesystemcjkfonts
+\IfFontExistsTF{STSong}{
+    \IfFontExistsTF{STHeiti}{
+        \IfFontExistsTF{STKaiti}{\usesystemcjkfontstrue}{}
+    }{}
+}{}
+
+\ifuseuploadedcjkfonts
+    \setCJKmainfont[
+        Path = fonts/,
+        BoldFont = STHeiti.ttf,
+        ItalicFont = STKaiti.ttf
+    ]{STSong.ttf}
+    \setCJKsansfont[Path = fonts/]{STHeiti.ttf}
+    \setCJKmonofont[Path = fonts/]{STHeiti.ttf}
+\else\ifusesystemcjkfonts
+    \setCJKmainfont[
+        BoldFont = STHeiti,
+        ItalicFont = STKaiti
+    ]{STSong}
+    \setCJKsansfont{STHeiti}
+    \setCJKmonofont{STHeiti}
+\else
+    \setCJKmainfont[
+        BoldFont = Noto Sans CJK SC,
+        ItalicFont = Noto Serif CJK SC
+    ]{Noto Serif CJK SC}
+    \setCJKsansfont{Noto Sans CJK SC}
+    \setCJKmonofont{Noto Sans CJK SC}
+\fi
+\fi
+
+% ── 页面布局 ──────────────────────────────────────────────
+\usepackage{geometry}
+\geometry{a4paper, left=1.5cm, right=1.5cm, top=1.5cm, bottom=1.5cm}
+
+% ── 颜色定义 ──────────────────────────────────────────────
+\usepackage{xcolor}
+\definecolor{sectioncolor}{RGB}{25,78,121}
+\definecolor{linkcolor}{RGB}{24,90,140}
+\definecolor{textcolor}{RGB}{0,0,0}
+
+% ── 标题格式 ──────────────────────────────────────────────
+\usepackage{titlesec}
+\titleformat{\section}
+    {\Large\bfseries\color{sectioncolor}}
+    {}
+    {0em}
+    {\uppercase}
+    [\vspace{-0.8em}\rule{\textwidth}{1pt}]
+\titlespacing{\section}{0pt}{0.1em}{0.1em}
+
+% ── 列表格式 ──────────────────────────────────────────────
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=*, nosep, topsep=0.2em, itemsep=0.1em, parsep=0em}
+
+% ── 图片与排版 ────────────────────────────────────────────
+\usepackage{graphicx}
+\setkeys{Gin}{draft=false}
+\usepackage[export]{adjustbox}
+\usepackage{calc}
+
+% ── 表格 ─────────────────────────────────────────────────
+\usepackage{tabularx}
+\usepackage{multirow}
+
+% ── 图标与超链接 ──────────────────────────────────────────
+\usepackage{fontawesome5}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=linkcolor, urlcolor=linkcolor}
+
+% ── 全局样式 ──────────────────────────────────────────────
+\color{textcolor}
+% 华文字体适当增加字距；Linux 上的 Noto 字体保持默认字距，避免长标题换行。
+\ifuseuploadedcjkfonts
+    \xeCJKsetup{CJKglue = \hskip 0.15em}
+\else\ifusesystemcjkfonts
+    \xeCJKsetup{CJKglue = \hskip 0.15em}
+\else
+    \xeCJKsetup{CJKglue = \hskip 0em}
+\fi\fi
+\linespread{1.00}
+\pagestyle{empty}
+
+% ── 自定义命令 ────────────────────────────────────────────
+\newcommand{\daterange}[1]{{\textbf{#1}}}
+\newcommand{\entrytitle}[1]{{\textbf{#1}}}
+

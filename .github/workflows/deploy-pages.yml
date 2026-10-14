@@ -26,7 +26,11 @@ jobs:
       - name: Compile résumé from LaTeX
         uses: xu-cheng/latex-action@v4
         with:
-          root_file: work-resume.tex
+          root_file: |
+            resume-frontier-arch.tex
+            resume-frontier-full.tex
+            resume-general-arch.tex
+            resume-general-full.tex
           os: debian
           extra_system_packages: fonts-noto-cjk
           latexmk_use_xelatex: true
@@ -34,9 +38,10 @@ jobs:
       - name: Assemble static site
         run: |
           mkdir -p _site/zh
-          cp index.html styles.css .nojekyll work-resume.pdf _site/
+          cp index.html styles.css .nojekyll _site/
+          cp resume-frontier-arch.pdf resume-frontier-full.pdf resume-general-arch.pdf resume-general-full.pdf _site/
           cp zh/index.html _site/zh/
-          test -s _site/work-resume.pdf
+          test -s _site/resume-frontier-arch.pdf
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
