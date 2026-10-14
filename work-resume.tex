@@ -159,7 +159,7 @@ $\bullet$ \textbf{GPA：}3.61 / 5.0（专业前 20\%） \hspace{0.5em} \textbf{�
 $\bullet$ \textbf{CPU 测试与工具链：}围绕项目组 CPU 核开展功能调研与测试，研究代码压缩方案，并参与编译器工具链调优。
 
 \par\noindent
-$\bullet$ \textbf{车规虚拟化：}基于 ARM-R52 与 bao-hypervisor 调研车机 ECU 芯片虚拟化；梳理 RISC-V 移植所需能力，分析不同 vCPU 调度与动态绑定场景下的功能取舍，掌握特权级虚拟化、内存保护与中断注入等软硬件协同设计思路。
+$\bullet$ \textbf{车规 ECU 虚拟化平台：}围绕 ARM Cortex-R52 与 Bao Hypervisor，调研特权级、内存保护、中断注入及 vCPU 调度机制，梳理向 RISC-V 平台移植所需的架构能力与功能取舍。
 
 % ── 学术经历 ──────────────────────────────────────────────
 \section*{学术经历}
@@ -170,7 +170,7 @@ $\bullet$ \textbf{车规虚拟化：}基于 ARM-R52 与 bao-hypervisor 调研车
 \hfill \daterange{2026.08 \textasciitilde{} 至今}
 
 \par\noindent
-$\bullet$ 负责将 QEMU 原型中的相关功能移植到 BOOM 处理器，并根据实现需求重构部分设计；基于 FireSim 完成 FPGA 上板部署。
+$\bullet$ 面向机密容器的原生体系结构支持，将 QEMU 原型中的相关机制移植至 BOOM 处理器，结合硬件实现需求调整设计，并基于 FireSim 完成 FPGA 原型部署。
 
 \par\addvspace{0.35\baselineskip}
 \noindent
@@ -178,21 +178,24 @@ $\bullet$ 负责将 QEMU 原型中的相关功能移植到 BOOM 处理器，并�
 \hfill \daterange{2025.09 \textasciitilde{} 至今}
 
 \par\noindent
-$\bullet$ 以 RISC-V 标准为依据开展 CPU fuzzing，寻找指令集架构（ISA）层面的行为错误。
+$\bullet$ 面向 RISC-V 处理器的架构行为正确性开展模糊测试研究，依据 ISA 规范检测处理器行为与规范之间的偏差。
 
 % ── 项目经历 ──────────────────────────────────────────────
 \section*{项目经历}
 \vspace{-0.1em}
 
 \noindent
-\entrytitle{“一生一芯”｜ RISC-V 处理器设计项目成员}
+\entrytitle{“一生一芯”（ysyx）｜ RISC-V CPU/SoC 软硬件系统平台}
 \hfill \daterange{2023.09 \textasciitilde{} 2025.09}
 
 \par\noindent
-$\bullet$ \textbf{处理器实现：}完成 RV32IM 指令集模拟器，以 Spike 为 reference 验证正确性；使用 Chisel 以指令组织方式实现 CPU，并在 Verilator 上以自研模拟器为 reference 验证 HDL 实现。
+$\bullet$ \textbf{RTL 硬件层：}基于 Chisel 实现 RISC-V CPU，使用 Verilator 进行 RTL 仿真，通过自研 Difftest 与指令集模拟器开展差分验证。
 
 \par\noindent
-$\bullet$ \textbf{系统软件与验证：}开发处理器测试工具 Difftest，移植并成功启动 RT-Thread；为自己写的模拟器添加csr和页表支持并通过opensbi启动linux进入shell。
+$\bullet$ \textbf{ISA 模拟与验证层：}实现 RV32IM 指令集模拟器，以 Spike 为参考验证指令行为；扩展 CSR 与页表支持，为系统软件运行提供架构功能。
+
+\par\noindent
+$\bullet$ \textbf{系统软件与应用运行层：}移植并启动 RT-Thread；在自研模拟器上通过 OpenSBI 启动 Linux，进入 Shell 交互环境。
 
 \par\addvspace{0.65\baselineskip}
 \noindent
@@ -200,7 +203,10 @@ $\bullet$ \textbf{系统软件与验证：}开发处理器测试工具 Difftest�
 \hfill \daterange{2022.03 \textasciitilde{} 2024.06}
 
 \par\noindent
-$\bullet$ \textbf{数字设计与验证：}完成 16×16 多端口 SRAM 控制器 Verilog RTL 与 SVA 验证，45nm 工艺下主频 250MHz、总带宽 16Gbps；参与 JPEG-LS 图像压缩 IP 核 C/C++ Model、Verilog IP 与 AXI4 集成，并在 MPSoC 完成 FPGA 回环测试；获 2023 年省级二等奖。
+$\bullet$ \textbf{存储控制器设计：}完成 16×16 多端口 SRAM 控制器的 Verilog RTL 实现与 SVA 验证；45nm 工艺下主频 250MHz、总带宽 16Gbps。
+
+\par\noindent
+$\bullet$ \textbf{图像压缩 IP 与系统集成：}参与 JPEG-LS 的 C/C++ 模型、Verilog IP 实现及 AXI4 集成，在 MPSoC 平台完成 FPGA 回环测试；获 2023 年省级二等奖。
 
 % ── 科研与开源（可选）：有论文、专利或开源贡献时，取消下方区块注释 ──
 % \section*{科研与开源}
@@ -217,16 +223,22 @@ $\bullet$ \textbf{数字设计与验证：}完成 16×16 多端口 SRAM 控制�
 \vspace{-0.1em}
 
 \noindent
-\entrytitle{南京邮电大学[校/院]大学生科协电子部 ｜ 部长 / 讲师}
+\entrytitle{南京邮电大学大学生科协电子部 ｜ 部长 / 讲师}
 \hfill \daterange{2022.09 \textasciitilde{} 2023.06}
 
 \par\noindent
 $\bullet$ \textbf{组织与教学：}负责社团日常运营及面向大一学生的授课；策划校“科技节”中的比赛，保障赛程顺利推进。
 
 % ── 荣誉技能：替换证书、技能和获奖经历 ──────────────────
-\section*{专业素养}
+\section*{专业技能与荣誉}
 \vspace{-0.1em}
-\noindent $\bullet$ \textbf{技术能力：}C、Python、Scala（Chisel）、Verilog；Linux、单片机开发、PCB 板绘制；Makefile、Verilator、Git、WSL2、Keil C52、示波器。
+\noindent $\bullet$ \textbf{处理器与 RTL 设计：}RISC-V CPU 设计，Chisel/Verilog 硬件实现，RTL 仿真、SVA 与 FPGA 原型验证。
+
+\noindent $\bullet$ \textbf{体系结构模拟与验证：}ISA 模拟器开发、CSR 与页表实现、Spike 参考验证、Difftest 差分验证及 CPU Fuzzing。
+
+\noindent $\bullet$ \textbf{系统软件与软硬件协同：}RT-Thread 移植、OpenSBI/Linux 启动、QEMU 原型向 BOOM 处理器移植。
+
+\noindent $\bullet$ \textbf{编程与开发环境：}C/C++、Python、Scala；Linux、Git、Makefile。
 
 \noindent $\bullet$ \textbf{荣誉奖项：}二等奖学金、优秀学生干部；EDA 精英挑战赛国家一等奖、电子设计大赛省一等奖、全国集成电路创新创业大赛省二等奖。
 
