@@ -1,0 +1,117 @@
+name: Release résumé PDFs
+
+on:
+  push:
+    tags:
+      - 'resume-*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release 标签，例如 resume-2026.10.15；不存在时基于所选分支创建'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-resume-${{ inputs.tag || github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Resolve release tag and source commit
+        id: source
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_TAG: ${{ inputs.tag }}
+          REF_NAME: ${{ github.ref_name }}
+          EVENT_SHA: ${{ github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$EVENT_NAME" == 'workflow_dispatch' ]]; then
+            tag="$INPUT_TAG"
+          else
+            tag="$REF_NAME"
+          fi
+          if [[ "$tag" != resume-?* ]] || ! git check-ref-format "refs/tags/$tag"; then
+            echo '::error::标签必须以 resume- 开头，并且是有效的 Git 标签名。'
+            exit 1
+          fi
+          if git show-ref --verify --quiet "refs/tags/$tag"; then
+            sha=$(git rev-parse "refs/tags/$tag^{commit}")
+          else
+            sha="$EVENT_SHA"
+          fi
+          printf 'tag=%s\nsha=%s\n' "$tag" "$sha" >> "$GITHUB_OUTPUT"
+
+      - name: Check out the exact source commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.source.outputs.sha }}
+
+      - name: Remove tracked PDFs before rebuilding
+        run: |
+          rm -f resume-frontier-arch.pdf resume-frontier-full.pdf \
+            resume-general-arch.pdf resume-general-full.pdf
+
+      - name: Compile all four résumé versions
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: |
+            resume-frontier-arch.tex
+            resume-frontier-full.tex
+            resume-general-arch.tex
+            resume-general-full.tex
+          os: debian
+          latexmk_use_xelatex: true
+
+      - name: Publish release and upload PDFs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ steps.source.outputs.tag }}
+          SOURCE_SHA: ${{ steps.source.outputs.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          pdfs=(
+            resume-frontier-arch.pdf
+            resume-frontier-full.pdf
+            resume-general-arch.pdf
+            resume-general-full.pdf
+          )
+          for pdf in "${pdfs[@]}"; do
+            test -s "$pdf"
+            if [[ $(head -c 5 "$pdf") != '%PDF-' ]]; then
+              echo "::error::$pdf 不是有效的 PDF 输出。"
+              exit 1
+            fi
+          done
+          notes="$RUNNER_TEMP/resume-release-notes.md"
+          {
+            printf '由 GitHub Actions 从提交 `%s` 使用 XeLaTeX 自动编译。\n\n' "$SOURCE_SHA"
+            printf '| 文件 | 内容 |\n| --- | --- |\n'
+            printf '| resume-frontier-arch.pdf | 大厂/私企 · 技术细节较多 · 体系结构相关经历 |\n'
+            printf '| resume-frontier-full.pdf | 大厂/私企 · 技术细节较多 · 完整经历 |\n'
+            printf '| resume-general-arch.pdf | 国企/其他行业公司 · 精简技术细节 · 体系结构相关经历 |\n'
+            printf '| resume-general-full.pdf | 国企/其他行业公司 · 精简技术细节 · 完整经历 |\n'
+          } > "$notes"
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" "${pdfs[@]}" --clobber
+          else
+            gh release create "$RELEASE_TAG" "${pdfs[@]}" \
+              --target "$SOURCE_SHA" \
+              --title "简历 $RELEASE_TAG" \
+              --notes-file "$notes"
+          fi
+          release_url=$(gh release view "$RELEASE_TAG" --json url --jq '.url')
+          printf '### 简历已发布\n\n[%s](%s)\n' \
+            "$RELEASE_TAG" "$release_url" >> "$GITHUB_STEP_SUMMARY"

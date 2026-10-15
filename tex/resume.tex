@@ -1,4 +1,5 @@
 % 两个正交维度：audience 控制技术措辞，scope 控制经历范围。
+% frontier 面向大厂/私企，突出技术；general 面向国企/其他行业公司，精简技术细节。
 % 直接打开共享模板时采用默认版本；四个入口的显式配置优先。
 \providecommand*{\resumeaudience}{frontier}
 \providecommand*{\resumescope}{arch}
@@ -69,10 +70,8 @@
 \resumesection{比赛经历}
 \input{tex/content/ic-competition.tex}
 \ifresumefull
-  \input{tex/content/electronics.tex}
   \entrygap
-\fi
-\ifresumefull
+  \input{tex/content/electronics.tex}
   \entrygap
   \input{tex/content/line-following.tex}
   \resumesection{校园经历}

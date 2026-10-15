@@ -8,10 +8,19 @@
 
 | 维度 | 选项 | 内容 |
 | --- | --- | --- |
-| 表达侧重 | `frontier` | 保留体系结构、RTL、ISA、虚拟化和软硬件协同的技术细节 |
-| 表达侧重 | `general` | 用更通用的语言说明职责、开发工作和阶段成果 |
-| 经历范围 | `arch` | 现有体系结构相关经历：开源芯片研究院、NACRE、CPU Fuzzing、一生一芯、存储控制器及 JPEG-LS IP |
-| 经历范围 | `full` | 在 arch 的基础上，参考原始 Word 资料补回电力电子电赛、Cortex-M0 无线 SoC、电磁循迹小车、校园经历，以及单片机和 PCB 技能 |
+| 投递对象与表达侧重 | `frontier` | 面向大厂、私企的技术岗位；突出技术能力，保留体系结构、RTL、ISA、虚拟化和软硬件协同等实现细节 |
+| 投递对象与表达侧重 | `general` | 面向国企、其他行业公司的投递场景；减少专业术语和实现细节，突出个人职责、完成的工作与具体成果 |
+| 经历范围 | `arch` | 体系结构相关经历：开源芯片研究院、NACRE、CPU Fuzzing、QEMU 训练营、一生一芯，以及集成电路竞赛中的存储控制器、JPEG-LS IP 和 Cortex-M0 无线 SoC |
+| 经历范围 | `full` | 在 arch 的基础上，补充电力电子电赛、电磁循迹小车、校园经历，以及单片机和 PCB 等技能 |
+
+版本选择示例：向大厂或私企投递处理器、体系结构等技术岗位时使用 `frontier-arch`；需要展示更完整的技术经历时使用 `frontier-full`。向国企或其他行业公司投递时，根据岗位相关性选择 `general-arch` 或 `general-full`。`arch/full` 决定展示哪些经历，`frontier/general` 决定如何表述，两个维度互不替代。
+
+维护措辞时遵循以下原则：
+
+- `frontier` 说明具体做了什么、采用哪些技术、如何验证以及取得什么结果；技术名词用于解释个人能力，避免只罗列工具和缩写。
+- `general` 优先让读者理解工作目标、个人职责和完成情况，保留必要的技术关键词与可核实成果，减少型号、接口和实现机制的展开。
+- 两种版本使用相同的事实与贡献边界，不能因压缩表述而把“参与”改成“独立完成”，也不能添加未经确认的指标或成果。适用对象是本项目的投递策略，实际技术深度仍应结合岗位要求判断。
+- 公共技能与荣誉继续共用一套描述；经历中的措辞按需分支，电子与嵌入式补充技能等按 `arch/full` 控制。
 
 四个版本共用自动单页排版：先测量正文高度，在 10–11pt 字号和 11.5–16.04pt 行距范围内选取能放入一页的最大设置，再把剩余高度均匀分配到栏目间。字号和行距上限不超过 Git 历史中的 11pt 正文及 1.18 倍行距，文字不会被拉伸。两种表达侧重使用相同的事实范围。
 
@@ -29,7 +38,7 @@ resume-general-full.tex  ┘
         └─ tex/content/*.tex       按经历拆分的正文
 ```
 
-四个入口文件只设置两个选项并通过 `\input` 引用共享模板，不复制正文。`tex/content/profile.tex` 统一维护个人信息和教育背景；其他文件按实习、科研、具体项目、校园经历和技能拆分。某条经历需要不同措辞时，在同一内容文件内使用 `\ifresumefrontier ... \else ... \fi`。完整经历与技能补充通过 `\ifresumefull` 控制。
+四个入口文件只设置两个选项并通过 `\input` 引用共享模板，不复制正文。`tex/content/profile.tex` 统一维护个人信息和教育背景；其他文件按实习、科研、具体项目、校园经历和技能拆分。某条经历需要不同措辞时，在同一内容文件内使用 `\ifresumefrontier ... \else ... \fi`：前一分支面向大厂、私企，后一分支面向国企、其他行业公司。完整经历与技能补充通过 `\ifresumefull` 控制。
 
 修改某条经历只需编辑对应的内容文件；修改章节顺序或分页只需编辑 `tex/resume.tex`；修改字体、颜色或边距只需编辑 `tex/preamble.tex`。
 
@@ -61,6 +70,25 @@ resume-general-full.tex  ┘
 字体固定后，字形、字宽与中文字距不再随系统变化；若需要严格复现排版，还应统一 TeX Live/XeLaTeX 和宏包版本。不同构建的 PDF 时间戳等元数据仍可能不同，因此这里保证的是统一字体输入，并不保证 PDF 文件逐字节相同。
 
 `source-resume.docx` 是原始资料，仅本地保留，已忽略。临时文件与配色预览不纳入版本管理。本仓库公开，简历 PDF 和源文件中的个人联系方式也随之公开。
+
+## 自动发布简历（GitHub Releases）
+
+`.github/workflows/release-resume.yml` 在推送 `resume-*` 标签时自动编译四个版本的 PDF，并上传到同名 GitHub Release，保留各版本的下载记录。附件从该标签对应的源码重新编译，不直接使用仓库中已有的 PDF。
+
+先提交并推送需要发布的简历内容和工作流，再创建版本标签：
+
+```bash
+git tag -a resume-2026.10.15 -m "简历 2026.10.15"
+git push origin resume-2026.10.15
+```
+
+同一天需要再次留档时可使用新标签，例如 `resume-2026.10.15-2`。
+
+也可以在 GitHub 仓库的 **Actions → Release résumé PDFs → Run workflow** 中手动发布：选择分支并填写 `resume-` 开头的 `tag`。如果标签已经存在，编译该标签对应的提交；如果标签不存在，编译所选分支在触发时的提交，并在成功发布时创建标签。手动触发入口需要先将工作流推送到默认分支。
+
+Release 附带四个 PDF：`resume-frontier-arch.pdf`、`resume-frontier-full.pdf`、`resume-general-arch.pdf`、`resume-general-full.pdf`。重跑同一标签时更新同名附件，不创建重复 Release；只有四份 PDF 均成功生成后才执行发布。流程使用 GitHub 自动提供的 `GITHUB_TOKEN`，不需要额外配置个人访问令牌。
+
+发布结果见 [GitHub Releases](https://github.com/msuadOf/resume-msuad/releases)。普通 `main` 分支推送继续只更新 Pages；发布带版本号的 Release 使用标签或手动触发。
 
 ## 个人主页（GitHub Pages）
 
