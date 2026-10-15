@@ -10,48 +10,43 @@
 \documentclass[11pt,a4paper,fontset=none]{ctexart}
 
 % ── 字体设置 ──────────────────────────────────────────────
-% 若需在 Overleaf 使用自定义字体，可将已授权的字体文件放入 fonts/ 文件夹，
-% 并按 STSong.ttf、STHeiti.ttf、STKaiti.ttf 命名；macOS 本地默认使用系统华文系列。
-\IfFontExistsTF{Times New Roman}{\setmainfont{Times New Roman}}{\setmainfont{TeX Gyre Termes}}
-
-\newif\ifuseuploadedcjkfonts
-\IfFileExists{fonts/STSong.ttf}{
-    \IfFileExists{fonts/STHeiti.ttf}{
-        \IfFileExists{fonts/STKaiti.ttf}{\useuploadedcjkfontstrue}{}
-    }{}
-}{}
-
-\newif\ifusesystemcjkfonts
-\IfFontExistsTF{STSong}{
-    \IfFontExistsTF{STHeiti}{
-        \IfFontExistsTF{STKaiti}{\usesystemcjkfontstrue}{}
-    }{}
-}{}
-
-\ifuseuploadedcjkfonts
-    \setCJKmainfont[
-        Path = fonts/,
-        BoldFont = STHeiti.ttf,
-        ItalicFont = STKaiti.ttf
-    ]{STSong.ttf}
-    \setCJKsansfont[Path = fonts/]{STHeiti.ttf}
-    \setCJKmonofont[Path = fonts/]{STHeiti.ttf}
-\else\ifusesystemcjkfonts
-    \setCJKmainfont[
-        BoldFont = STHeiti,
-        ItalicFont = STKaiti
-    ]{STSong}
-    \setCJKsansfont{STHeiti}
-    \setCJKmonofont{STHeiti}
-\else
-    \setCJKmainfont[
-        BoldFont = Noto Sans CJK SC,
-        ItalicFont = Noto Serif CJK SC
-    ]{Noto Serif CJK SC}
-    \setCJKsansfont{Noto Sans CJK SC}
-    \setCJKmonofont{Noto Sans CJK SC}
-\fi
-\fi
+% 按文件路径加载仓库内固定字体；不检测或回退到操作系统字体。
+\setmainfont[
+    Path=fonts/,
+    BoldFont=texgyretermes-bold.otf,
+    ItalicFont=texgyretermes-italic.otf,
+    BoldItalicFont=texgyretermes-bolditalic.otf
+]{texgyretermes-regular.otf}
+\setsansfont[
+    Path=fonts/,
+    BoldFont=texgyreheros-bold.otf,
+    ItalicFont=texgyreheros-italic.otf,
+    BoldItalicFont=texgyreheros-bolditalic.otf
+]{texgyreheros-regular.otf}
+\setmonofont[
+    Path=fonts/,
+    BoldFont=texgyrecursor-bold.otf,
+    ItalicFont=texgyrecursor-italic.otf,
+    BoldItalicFont=texgyrecursor-bolditalic.otf
+]{texgyrecursor-regular.otf}
+\setCJKmainfont[
+    Path=fonts/,
+    BoldFont=FandolHei-Regular.otf,
+    ItalicFont=FandolKai-Regular.otf,
+    BoldItalicFont=FandolHei-Bold.otf
+]{FandolSong-Regular.otf}
+\setCJKsansfont[
+    Path=fonts/,
+    BoldFont=FandolHei-Bold.otf,
+    ItalicFont=FandolKai-Regular.otf,
+    BoldItalicFont=FandolHei-Bold.otf
+]{FandolHei-Regular.otf}
+\setCJKmonofont[
+    Path=fonts/,
+    BoldFont=FandolHei-Bold.otf,
+    ItalicFont=FandolKai-Regular.otf,
+    BoldItalicFont=FandolHei-Bold.otf
+]{FandolHei-Regular.otf}
 
 % ── 页面布局 ──────────────────────────────────────────────
 \usepackage{geometry}
@@ -94,14 +89,8 @@
 
 % ── 全局样式 ──────────────────────────────────────────────
 \color{textcolor}
-% 华文字体适当增加字距；Linux 上的 Noto 字体保持默认字距，避免长标题换行。
-\ifuseuploadedcjkfonts
-    \xeCJKsetup{CJKglue = \hskip 0.15em}
-\else\ifusesystemcjkfonts
-    \xeCJKsetup{CJKglue = \hskip 0.15em}
-\else
-    \xeCJKsetup{CJKglue = \hskip 0em}
-\fi\fi
+% 固定中文字距，避免不同平台的换行差异。
+\xeCJKsetup{CJKglue = \hskip 0.10em}
 \linespread{1.00}
 \pagestyle{empty}
 

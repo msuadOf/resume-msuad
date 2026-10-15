@@ -54,7 +54,9 @@ resume-general-full.tex  ┘
 
 主页下载链接直接使用 `resume-frontier-arch.pdf`。旧的 `work-resume-frontier.tex` 和 `work-resume-general.tex` 分别指向对应的 arch 版，也不再维护独立正文。
 
-字体默认使用 macOS 华文系列与 Times New Roman；其他环境需安装 `tex/preamble.tex` 指定的 Noto CJK 字体，或在 `fonts/` 中提供已授权的自定义字体。
+字体随项目放在 `fonts/` 中，所有平台按同一文件路径加载，不再使用系统字体或自动回退。中文使用 Fandol 宋体、黑体与楷体；西文使用 TeX Gyre Termes、Heros 和 Cursor。复制整个项目到 macOS、Linux、Windows 或 Overleaf 后，使用 XeLaTeX 构建即可，无需额外安装字体。字体文件、原始许可、校验值与来源见 [fonts/README.md](fonts/README.md)。
+
+字体固定后，字形、字宽与中文字距不再随系统变化；若需要严格复现排版，还应统一 TeX Live/XeLaTeX 和宏包版本。不同构建的 PDF 时间戳等元数据仍可能不同，因此这里保证的是统一字体输入，并不保证 PDF 文件逐字节相同。
 
 `source-resume.docx` 是原始资料，仅本地保留，已忽略。临时文件与配色预览不纳入版本管理。本仓库公开，简历 PDF 和源文件中的个人联系方式也随之公开。
 

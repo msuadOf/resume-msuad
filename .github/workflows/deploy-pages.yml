@@ -32,7 +32,6 @@ jobs:
             resume-general-arch.tex
             resume-general-full.tex
           os: debian
-          extra_system_packages: fonts-noto-cjk
           latexmk_use_xelatex: true
 
       - name: Assemble static site
