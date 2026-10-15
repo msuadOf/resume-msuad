@@ -6,18 +6,25 @@
     \def\resumeprofilelabel{政治面貌：}
     \def\resumeprofilevalue{团\hspace{1em}员}
 \fi
-\noindent
-\begin{minipage}[t]{\textwidth}
-    \vspace*{-1.8em}
-    \centering
-        {\LARGE\bfseries\color{sectioncolor} 白逸凡} \\[0.25em]
-        \begin{tabular}{@{}ll@{\hspace{2.5em}}ll@{}}
+% 测量信息表格宽度，姓名在左侧全部剩余空间内居中。
+\sbox{\resumeprofileinfobox}{%
+    \fontsize{10pt}{12pt}\selectfont
+        \begin{tabular}{@{}ll@{\hspace{1.5em}}ll@{}}
             \textbf{出生日期：} & 2003.09.03 & \textbf{电话：} & 173-2791-2445 \\[0.1em]
             \textbf{\resumeprofilelabel} & \resumeprofilevalue & \textbf{邮箱：} & 1445617868@qq.com \\
         \end{tabular}
+}
+\vspace*{-0.7em}
+\noindent
+\begin{minipage}[c]{\dimexpr\textwidth-\wd\resumeprofileinfobox\relax}
+    \centering
+    {\fontsize{32pt}{34pt}\selectfont\bfseries\color{sectioncolor} 白逸凡}
+\end{minipage}%
+\begin{minipage}[c]{\wd\resumeprofileinfobox}
+    \usebox{\resumeprofileinfobox}
 \end{minipage}
 
-\par\vspace{0.1em}
+\par\vspace{0.35em}
 
 % ── 教育背景 ──────────────────────────────────────────────
 \resumesection{教育背景}
@@ -26,5 +33,5 @@
 
 \resumeentry{南京邮电大学 ｜ 电子科学与技术（本科）}{2021.09 \textasciitilde{} 2025.08}
 
-\resumeitem{\textbf{GPA：}3.61 / 5.0（专业前 20\%） \hspace{0.5em} \textbf{主修课程：}数据结构、计算机组成原理、微机原理、半导体物理与器件等。}
+\resumeitem{\textbf{GPA：}3.61 / 5.0（专业前 20\%） \hspace{0.5em} \textbf{主修课程：}数据结构、计算机组成原理、微机原理、半导体物理等。}
 

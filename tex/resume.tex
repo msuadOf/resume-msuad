@@ -23,11 +23,11 @@
   \fi
 \fi
 \input{tex/preamble.tex}
-\ifresumefull
-  \linespread{1.18}
-  \titlespacing{\section}{0pt}{0.5em}{0.35em}
-\fi
-\newcommand{\resumesection}[1]{\section*{#1}\vspace{-0.1em}}
+\geometry{top=1.2cm,bottom=1.2cm}
+\linespread{1.0}
+\titlespacing{\section}{0pt}{0.4em}{0.15em}
+% 剩余高度均匀分配到栏目间，不拉伸字形。
+\newcommand{\resumesection}[1]{\par\vskip 0pt plus 1fil\section*{#1}\vspace{-0.1em}}
 \newcommand{\entrygap}{\par\addvspace{0.45\baselineskip}}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt}
@@ -36,6 +36,7 @@
 \widowpenalty=10000
 \newsavebox{\resumeentrytitlebox}
 \newsavebox{\resumeentrydatebox}
+\newsavebox{\resumeprofileinfobox}
 % 短标题与日期同一行；长标题完整显示，日期另起一行右对齐。
 \newcommand{\resumeentry}[2]{%
   \par
@@ -55,7 +56,7 @@
   \par\noindent\hangindent=1em\hangafter=1
   \makebox[1em][l]{\textbullet}#1\par
 }
-\begin{document}
+\newcommand{\resumecontent}{%
 \input{tex/content/profile.tex}
 \resumesection{实习经历}
 \input{tex/content/internship.tex}
@@ -79,4 +80,53 @@
 \fi
 \resumesection{专业技能与荣誉}
 \input{tex/content/skills.tex}
+}
+% 可调缩放范围；上限不超过历史 11pt 正文及 1.18 倍行距。
+\providecommand{\resumeminfontsize}{10}
+\providecommand{\resumemaxfontsize}{11}
+\providecommand{\resumeminbaseline}{11.5}
+\providecommand{\resumemaxbaseline}{16.04}
+\newsavebox{\resumepagebox}
+\ExplSyntaxOn
+\fp_new:N \l_resume_font_fp
+\fp_new:N \l_resume_baseline_fp
+\int_new:N \l_resume_trial_int
+\cs_new_protected:Npn \resume_fit_page:
+  {
+    \int_zero:N \l_resume_trial_int
+    \bool_do_until:nn
+      {
+        \dim_compare_p:nNn
+          {\box_ht:N \resumepagebox + \box_dp:N \resumepagebox}
+          < {\textheight + 0.01pt}
+        || \int_compare_p:nNn {\l_resume_trial_int} > {20}
+      }
+      {
+        \fp_set:Nn \l_resume_font_fp
+          {min(11,\resumemaxfontsize) -
+           (min(11,\resumemaxfontsize)-\resumeminfontsize)*\l_resume_trial_int/20}
+        \fp_set:Nn \l_resume_baseline_fp
+          {min(16.04,\resumemaxbaseline) -
+           (min(16.04,\resumemaxbaseline)-\resumeminbaseline)*\l_resume_trial_int/20}
+        \setbox\resumepagebox=\vbox
+          {
+            \hsize=\textwidth
+            \fontsize{\fp_to_decimal:N \l_resume_font_fp pt}
+              {\fp_to_decimal:N \l_resume_baseline_fp pt}\selectfont
+            \resumecontent\par
+          }
+        \int_incr:N \l_resume_trial_int
+      }
+    \dim_compare:nNnT
+      {\box_ht:N \resumepagebox + \box_dp:N \resumepagebox} > {\textheight}
+      {\PackageError{resume}{Content~exceeds~one~page~at~minimum~size}
+        {Reduce~content~or~adjust~the~minimum~size.}}
+    \typeout{Resume~fit:~font=\fp_to_decimal:N \l_resume_font_fp pt,~
+      baseline=\fp_to_decimal:N \l_resume_baseline_fp pt}
+    \vbox to \textheight {\unvbox\resumepagebox}
+  }
+\cs_new_eq:NN \resumefitpage \resume_fit_page:
+\ExplSyntaxOff
+\begin{document}
+\resumefitpage
 \end{document}
